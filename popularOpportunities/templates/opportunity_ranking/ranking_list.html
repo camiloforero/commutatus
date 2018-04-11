@@ -1,0 +1,22 @@
+{% extends "opportunity_ranking/base.html" %}
+{% block title %}results for {{program}}{% endblock %}
+{% block content %}
+<h1></h1>
+<table class="table table-responsive">
+  <thead>
+    <tr>
+      <th>{{measure}}</th>
+      <th>Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for stats in data %}
+    <tr>
+      <td>{{stats.measure}}</td>
+      <td>{{stats.amount}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
