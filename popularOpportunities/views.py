@@ -6,13 +6,14 @@ from .forms import OpportunityRankingForm
 from pyexpa.pyexpa.api import ExpaApi
 
 import random
+import os
 
 
 class FilterOpportunities(FormView):
     template_name = "opportunity_ranking/form.html"
 
     def get_form(self, data=None, files=None, *args, **kwargs):
-        ex_api = ExpaApi(token='e316ebe109dd84ed16734e5161a2d236d0a7e6daf499941f7c110078e3c75493')
+        ex_api = ExpaApi(token=os.environ['expa_token'])
         mc_list = ex_api.make_query(['lists', 'mcs'])
         choices = [(mc['id'], mc['name']) for mc in mc_list]
         choices.insert(0, (0, '---------'))
@@ -56,7 +57,7 @@ class FilterOpportunities(FormView):
         if  post_data['office'] != '0':
             query_params['filters[committee]'] = post_data['office']
 
-        ex_api = ExpaApi(token='e316ebe109dd84ed16734e5161a2d236d0a7e6daf499941f7c110078e3c75493')
+        ex_api = ExpaApi(token=os.environ['expa_token'])
         ops = ex_api.make_query(['opportunities'], query_params)
         ops_data = ops['data']
 
